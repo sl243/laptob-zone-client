@@ -8,5 +8,25 @@
       "OriginalPrice": 52000,
       "use": "8 Month",
       "sellerName": "Jabed Ali"
+    },  
+    {
+      "category_id": 2,
+      "categoryName": "Asus",
+      "img": "Teeth Orthodontics",
+      "location": "Dhaka",
+      "resalePrice": 35000,
+      "OriginalPrice": 52000,
+      "use": "8 Month",
+      "sellerName": "Jabed Ali"
+    },  
+    {
+      "category_id": 3,
+      "categoryName": "Hp",
+      "img": "Teeth Orthodontics",
+      "location": "Dhaka",
+      "resalePrice": 35000,
+      "OriginalPrice": 52000,
+      "use": "8 Month",
+      "sellerName": "Jabed Ali"
     }  
-  ]
+]

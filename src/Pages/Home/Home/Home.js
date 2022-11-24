@@ -1,9 +1,10 @@
 import React from 'react';
+import Categories from '../../Categories/Categories';
 
 const Home = () => {
     return (
         <div className='mx-10'>
-            <h1>This is Home</h1>
+            <Categories></Categories>
         </div>
     );
 };
