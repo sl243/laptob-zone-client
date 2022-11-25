@@ -8,7 +8,6 @@ const Categories = () => {
         fetch('http://localhost:5000/categories')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setCategories(data)
             })
     }, [])
@@ -20,7 +19,7 @@ const Categories = () => {
                 {
                     categories.map(category => <div className="card w-96 bg-base-100 shadow-xl" key={category._id}>
                         <div className="card-body items-center text-center">
-                            <Link to={`/categoryProduct/${category._id}`}>
+                            <Link to={`/categoryProduct/${category.category_id}`}>
                                 <h2 className="card-title">{category.categoryName}</h2>
                             </Link>
                         </div>
