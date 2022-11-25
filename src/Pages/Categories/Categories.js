@@ -14,7 +14,7 @@ const Categories = () => {
 
     return (
         <section className='my-10'>
-            <h1 className='text-xl font-semibold'>All Categories: {categories.length}</h1>
+            <h1 className='text-xl font-semibold'>All Categories</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5'>
                 {
                     categories.map(category => <div className="card w-96 bg-base-100 shadow-xl" key={category._id}>
