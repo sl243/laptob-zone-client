@@ -1,37 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 import login from '../../images/login/Login.jpg'
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {userCreate} = useContext(AuthContext)
 
     const handleSignUp = data => {
         console.log(data)
         // setSignupError('')
 
-        // userCreate(data.email, data.password)
-        //     .then(result => {
-        //         const user = result.user;
-        //         console.log(user)
-        //         toast.success('Your Account Created Successfully')
+        userCreate(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                // toast.success('Your Account Created Successfully')
 
-        //         const userInfo = {
-        //             displayName: data.name,
-        //         }
+                // const userInfo = {
+                //     displayName: data.name,
+                // }
 
-        //         updateUserProfile(userInfo)
-        //             .then(() => { 
-        //                 userSaveDatabase(data.name, data.email)
-        //             })
-        //             .catch(error => {
-        //                 console.error(error)
-        //             })
-        //     })
-        //     .catch(error => {
-        //         console.error(error)
-        //         setSignupError(error.message)
-        //     })
+                // updateUserProfile(userInfo)
+                //     .then(() => { 
+                //         userSaveDatabase(data.name, data.email)
+                //     })
+                //     .catch(error => {
+                //         console.error(error)
+                //     })
+            })
+            .catch(error => {
+                console.error(error)
+                // setSignupError(error.message)
+            })
     }
 
     return (
