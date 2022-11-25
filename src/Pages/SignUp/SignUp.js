@@ -1,38 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import login from '../../images/login/Login.jpg'
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {userCreate} = useContext(AuthContext)
+    const { userCreate, updateUserProfile } = useContext(AuthContext);
+    const [signupError, setSignupError] = useState('')
 
     const handleSignUp = data => {
         console.log(data)
-        // setSignupError('')
+        setSignupError('')
 
         userCreate(data.email, data.password)
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                // toast.success('Your Account Created Successfully')
+                toast.success('Your Account Created Successfully')
 
-                // const userInfo = {
-                //     displayName: data.name,
-                // }
+                const userInfo = {
+                    displayName: data.name,
+                    buyerSeller: data.buyerSeller
+                }
 
-                // updateUserProfile(userInfo)
-                //     .then(() => { 
-                //         userSaveDatabase(data.name, data.email)
-                //     })
-                //     .catch(error => {
-                //         console.error(error)
-                //     })
+                updateUserProfile(userInfo)
+                    .then(() => {
+                        // userSaveDatabase(data.name, data.email)
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
             })
             .catch(error => {
                 console.error(error)
-                // setSignupError(error.message)
+                setSignupError(error.message)
             })
     }
 
@@ -77,6 +80,15 @@ const SignUp = () => {
                                     />
                                 </div>
                                 {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
+                                <div className="form-control w-full max-w-xs my-3">
+                                    <select
+                                        {...register("buyerSeller", {
+                                            required: 'Selected Your Option'
+                                        })}>
+                                        <option value="buyer">Buyer</option>
+                                        <option value="seller">Seller</option>
+                                    </select>
+                                </div>
                                 <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Password</span>
@@ -99,12 +111,12 @@ const SignUp = () => {
 
                                     <input className='btn btn-accent w-full' value='Sign Up' type="submit" />
                                 </div>
-                                {/* {
+                                {
                                     signupError && <p className='text-red-800'>{signupError}</p>
-                                } */}
+                                }
                             </form>
                             <p>
-                                Already have an account? <Link className='text-blue-500' to='/signup'>Please login</Link>
+                                Already have an account? <Link className='text-blue-500' to='/login'>Please login</Link>
                             </p>
                             <div className="divider">OR</div>
                             <div className="form-control mt-6">

@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navber = () => {
+    const {user, logOut} = useContext(AuthContext)
+
+    // user sign out
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {})
+            .catch(() => {})
+    }
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
-        <li tabIndex={0}>
-            <Link to='' className="justify-between">
-                Laptobs
-                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-            </Link>
-            <ul className="p-2">
-                <li><Link to=''>Dell</Link></li>
-                <li><Link to=''>Asus</Link></li>
-                <li><Link to=''>Apple</Link></li>
-            </ul>
-        </li>
         <li><Link to=''>Advertised Items</Link></li>
-        <li><Link to='/login'>Login</Link></li>
+        {user?.uid ?
+            <>
+                <li><Link to='/dashboard'>Dashboard</Link></li>
+                <li><Link onClick={handleLogOut} >Sign Out</Link></li>
+            </>
+            :
+            <li><Link to='/login'>Login</Link></li>
+        }
     </>
     return (
         <div className="flex justify-between navbar bg-base-100">
