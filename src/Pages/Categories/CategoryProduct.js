@@ -5,8 +5,6 @@ const CategoryProduct = () => {
     const categories = useLoaderData()
     const {categoryName} = categories;
 
-   
-
     return (
         <div>
             <h1>product: {categoryName}</h1>
