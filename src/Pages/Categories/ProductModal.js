@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const ProductModal = ({ categories }) => {
@@ -14,7 +15,9 @@ const ProductModal = ({ categories }) => {
         const phone = form.phone.value;
         const meetLocation = form.meetLocation.value;
 
-        const booking = {
+        const buy = {
+            productName: categories[0].productName,
+            image: categories[0].img,
             userName,
             email,
             phone,
@@ -22,27 +25,25 @@ const ProductModal = ({ categories }) => {
             meetLocation
         }
 
-        console.log(booking)
+        console.log(buy)
 
-        // fetch('https://webcode-doctors-server.vercel.app/bookings', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type' : 'application/json'
-        //     },
-        //     body: JSON.stringify(booking)
-        // })
-        // .then( res => res.json())
-        // .then( data => {
-        //     console.log(data)
-        //     if(data.acknowledged) {
-        //         setTreatment(null)
-        //         toast.success('Booking Confirmed')
-        //         refetch()
-        //     }
-        //     else {
-        //         toast.error(data.message)
-        //     }
-        // })
+        fetch('http://localhost:5000/buy', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(buy)
+        })
+        .then( res => res.json())
+        .then( data => {
+            console.log(data)
+            if(data.acknowledged) {
+                toast.success('Your product items booked')
+            }
+            else {
+                toast.error(data.message)
+            }
+        })
 
         
     }

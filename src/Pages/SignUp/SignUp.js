@@ -20,7 +20,7 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user)
                 toast.success('Your Account Created Successfully')
-                navigate('/')
+               
 
                 const userInfo = {
                     displayName: data.name,
@@ -30,6 +30,7 @@ const SignUp = () => {
                 updateUserProfile(userInfo)
                     .then(() => {
                         // userSaveDatabase(data.name, data.email)
+                        navigate('/')
                     })
                     .catch(error => {
                         console.error(error)
