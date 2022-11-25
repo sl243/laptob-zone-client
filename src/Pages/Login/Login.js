@@ -7,7 +7,7 @@ import login from '../../images/login/Login.jpg'
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [data, setData] = useState("");
-    const {signIn} = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('')
 
     const location = useLocation();
@@ -22,13 +22,25 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
-                navigate(from, {replace: true})
+                navigate(from, { replace: true })
                 // setLoginUserEmail(data.email)
-                
+
             })
             .catch(error => {
                 console.error(error.message);
                 setLoginError(error.message)
+            })
+    }
+
+    // Google Sign in
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+            })
+            .catch(error => {
+                console.error(error)
             })
     }
 
@@ -89,7 +101,11 @@ const Login = () => {
                             </p>
                             <div className="divider">OR</div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-outline">Continue With Google</button>
+                                <button
+                                    onClick={handleGoogleSignIn}
+                                    className="btn btn-outline"
+                                >Continue With Google
+                                </button>
                             </div>
                         </div>
                     </div>
