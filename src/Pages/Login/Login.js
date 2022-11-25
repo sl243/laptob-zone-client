@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import login from '../../images/login/Login.jpg'
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [data, setData] = useState("");
 
     const handleLogin = data => {
@@ -36,7 +36,7 @@ const Login = () => {
                                         className="input input-bordered w-full"
                                     />
                                 </div>
-                                {/* {errors.email && <p className='text-red-500'>{errors.email?.message}</p>} */}
+                                {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
                                 <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Password</span>
@@ -50,7 +50,7 @@ const Login = () => {
                                         placeholder="Your is Password"
                                         className="input input-bordered w-full"
                                     />
-                                    {/* {errors.password && <p className='text-red-500'>{errors.password?.message}</p>} */}
+                                    {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
                                     <label className="label">
                                         <span className="label-text-alt">Forgate Password ?</span>
                                     </label>
