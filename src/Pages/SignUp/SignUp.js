@@ -4,12 +4,19 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import login from '../../images/login/Login.jpg'
+import useToken from '../../useToken/useToken';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { userCreate, updateUserProfile } = useContext(AuthContext);
     const [signupError, setSignupError] = useState('')
+    const [userEmail, setUserEmail] = useState('');
+    const [token] = useToken(userEmail)
     const navigate = useNavigate()
+
+    if(token) {
+        navigate('/')
+    }
 
     const handleSignUp = data => {
         console.log(data)
@@ -29,8 +36,8 @@ const SignUp = () => {
 
                 updateUserProfile(userInfo)
                     .then(() => {
-                        // userSaveDatabase(data.name, data.email)
-                        navigate('/')
+                        userSaveDatabase(data.name, data.email, data.buyerSeller)
+                       
                     })
                     .catch(error => {
                         console.error(error)
@@ -40,6 +47,24 @@ const SignUp = () => {
                 console.error(error)
                 setSignupError(error.message)
             })
+    }
+
+
+     // user save in database
+     const userSaveDatabase = (name, email, buyerSeller) => {
+        const user = {name, email, buyerSeller};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(user) 
+        })
+        .then( res => res.json())
+        .then( data => {
+            console.log(data)
+            setUserEmail(email)
+        })
     }
 
     return (
