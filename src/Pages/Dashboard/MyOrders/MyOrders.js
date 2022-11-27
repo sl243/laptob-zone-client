@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const MyOrders = () => {
@@ -10,7 +11,7 @@ const MyOrders = () => {
         queryKey: ['buy'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/buy?email=${user?.email}`, {
-              
+
             })
             const data = await res.json()
             return data;
@@ -47,7 +48,18 @@ const MyOrders = () => {
                                 <td>{order.productName}</td>
                                 <td>{order.price}</td>
                                 <th>
-                                    <button className="btn btn-ghost btn-xs">Pay</button>
+                                    {
+                                        order.price && !order.paid &&
+                                        <Link to={`/dashboard/payment/${order._id}`}>
+                                            <button
+                                                className='btn btn-outline btn-sm'
+                                            >Pay</button>
+                                        </Link>
+                                    }
+                                    {
+                                        order.price && order.paid &&
+                                        <span className='text-blue-500 font-bold'>Paid</span>
+                                    }
                                 </th>
                             </tr>)
                         }

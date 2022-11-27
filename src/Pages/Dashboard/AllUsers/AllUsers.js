@@ -40,7 +40,7 @@ const AllUsers = () => {
      // delete user
      const handleDeleteDoctor = user => {
         console.log(user)
-        fetch( `https://webcode-doctors-server.vercel.app/doctors/${''}`, {
+        fetch( `http://localhost:5000/users/${user._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('access-token')}`

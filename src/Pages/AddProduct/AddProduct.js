@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const AddProduct = () => {
+    const {user} = useContext(AuthContext)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
     const imageKey = process.env.REACT_APP_imgbb_key;
 
     const handleAddProduct = data => {
-        console.log(data)
         const image = (data.image[0]);
         const formData = new FormData();
         formData.append('image', image);
@@ -32,6 +33,7 @@ const AddProduct = () => {
                         categories: data.categories,
                         condition: data.condition,
                         sellerName: data.sellerName,
+                        email: data.email,
                         phone: data.phone,
                         location: data.location,
                         image: imgData.data.url
@@ -60,6 +62,21 @@ const AddProduct = () => {
         <div className='mb-5'>
             <h2 className='text-3xl mb-6 mt-5 text-center'>Add A Products</h2>
             <form onSubmit={handleSubmit(handleAddProduct)}>
+                <div className="form-control w-1/2 mx-auto">
+                    <label className="label">
+                        <span className="label-text">User Email</span>
+                    </label>
+                    <input
+                        {...register("email", {
+                            required: 'Product Name is required'
+                        })}
+                        type="email"
+                        defaultValue={user.email}
+                        readOnly
+                        placeholder="Your product Name"
+                        className="input input-bordered w-full"
+                    />
+                </div>
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Product Name</span>
