@@ -3,21 +3,19 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const MyOrders = () => {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
 
-    const {data: buy = []} = useQuery({
+    const { data: buy = [] } = useQuery({
         queryKey: ['buy'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:5000/buy?email=${user?.email}`, {
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('access-token')}`
-                }
+              
             })
             const data = await res.json()
             return data;
         }
-        
+
     })
     return (
         <div>
@@ -34,9 +32,9 @@ const MyOrders = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            buy.map((order, i) => <tr key={order._id}>
-                                <th>{i+1}</th>
+                        {buy.length > 0 &&
+                            buy?.map((order, i) => <tr key={order._id}>
+                                <th>{i + 1}</th>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div className="avatar">

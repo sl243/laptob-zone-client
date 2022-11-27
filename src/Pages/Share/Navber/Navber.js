@@ -14,6 +14,7 @@ const Navber = () => {
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/blog'>Blogs</Link></li>
         <li><Link to=''>Advertised Items</Link></li>
         {user?.uid ?
             <>
