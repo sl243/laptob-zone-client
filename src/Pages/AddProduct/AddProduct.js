@@ -5,51 +5,60 @@ import toast from 'react-hot-toast';
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const imageKey = process.env.REACT_APP_imgbb_key;
+
     const handleAddProduct = data => {
         console.log(data)
-        // const image = (data.image[0]);
-        // const formData = new FormData();
-        // formData.append('image', image);
-        // const url = `https://api.imgbb.com/1/upload?key=${''}`
-        // fetch(url, {
-        //     method: 'POST',
-        //     body: formData
-        // })
-        //     .then(res => res.json())
-        //     .then(imgData => {
-        //         if (imgData.success) {
-        //             console.log(imgData.data.url)
-        //             const doctor = {
-        //                 name: data.name,
-        //                 email: data.email,
-        //                 specialty: data.specialty,
-        //                 image: imgData.data.url
-        //             }
+        const image = (data.image[0]);
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageKey}`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url)
+                    const products = {
+                        productName: data.productName,
+                        originPrice: data.originPrice,
+                        resalePrice: data.resalePrice,
+                        use: data.use,
+                        description: data.description,
+                        categories: data.categories,
+                        condition: data.condition,
+                        sellerName: data.sellerName,
+                        phone: data.phone,
+                        location: data.location,
+                        image: imgData.data.url
+                    }
 
-        //             // save doctors infomation in the database
-        //             fetch('https://webcode-doctors-server.vercel.app/doctors', {
-        //                 method: 'POST',
-        //                 headers: {
-        //                     'content-type': 'application/json',
-        //                     authorization: `bearer ${localStorage.getItem('access-token')}`
-        //                 },
-        //                 body: JSON.stringify(doctor)
-        //             })
-        //                 .then(res => res.json())
-        //                 .then(result => {
-        //                     console.log(result)
-        //                     toast.success(`${data.name} is added successfully`)
-        //                     // navigate('/dashboard/managedoctors')
-        //                 })
-        //         }
-        //     })
+                    // save products infomation in the database
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('access-token')}`
+                        },
+                        body: JSON.stringify(products)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result)
+                            toast.success(`${data.name} is added successfully`)
+                            // navigate('/dashboard/myproduct')
+                        })
+                }
+            })
     }
 
     return (
         <div className='mb-5'>
             <h2 className='text-3xl mb-6 mt-5 text-center'>Add A Products</h2>
             <form onSubmit={handleSubmit(handleAddProduct)}>
-                <div className="form-control w-1/2 mx-auto mx-auto">
+                <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Product Name</span>
                     </label>
@@ -109,7 +118,7 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Description</span>
                     </label>
-                    <input
+                    <textarea
                         {...register("description", {
                             required: 'product description is required',
 
@@ -119,20 +128,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-                <div className="form-control w-1/2 mx-auto">
-                    <label className="label">
-                        <span className="label-text">Description</span>
-                    </label>
-                    <input
-                        {...register("description", {
-                            required: 'product description is required',
 
-                        })}
-                        type="description"
-                        placeholder="product description"
-                        className="input input-bordered w-full"
-                    />
-                </div>
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Categories</span>
