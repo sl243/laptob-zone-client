@@ -1,8 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import ConfirmationModal from '../../Share/ConfirmationModal/ConfirmationModal';
 
 const AllUsers = () => {
+    const [deleteUsers, setDeleteUsers] = useState(null)
+
+    const closeModal = () => {
+        setDeleteUsers(null)
+    }
+
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
@@ -28,6 +35,25 @@ const AllUsers = () => {
                     refetch();
                 }
             })
+    }
+
+     // delete user
+     const handleDeleteDoctor = user => {
+        console.log(user)
+        fetch( `https://webcode-doctors-server.vercel.app/doctors/${''}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('access-token')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`Doctor ${user.name} deleted successfully`)
+            }
+            
+        })
     }
 
     return (
@@ -60,15 +86,28 @@ const AllUsers = () => {
                                         </button>}
                                 </td> */}
                                 <td>
-                                    <button className="btn btn-circle">
+                                    <label
+                                        onClick={() => setDeleteUsers(user)}
+                                        htmlFor="confirmation-modal"
+                                        className="btn btn-error btn-circle">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                                    </button>
+                                    </label>
                                 </td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deleteUsers &&
+                <ConfirmationModal
+                    title={`Are you sure want to delete`}
+                    message={`If you delete ${deleteUsers.name}. It cannot be undone`}
+                    successAction={handleDeleteDoctor}
+                    modalData={deleteUsers}
+                    closeModal={closeModal}
+                ></ConfirmationModal>
+            }
         </div>
     );
 };

@@ -8,6 +8,7 @@ import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import MyProducts from "../../Pages/MyProducts/MyProducts";
 import PageNotFound from "../../Pages/PageNotFound/PageNotFound";
 import SignUp from "../../Pages/SignUp/SignUp";
 import AdminRoute from "../AdminRoute/AdminRoute";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/addproduct',
                 element: <AddProduct></AddProduct>
+            },
+            {
+                path: '/dashboard/myproduct',
+                element: <MyProducts></MyProducts>
             },
         ]
     },

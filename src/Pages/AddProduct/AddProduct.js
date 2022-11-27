@@ -1,9 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const imageKey = process.env.REACT_APP_imgbb_key;
 
@@ -48,7 +50,7 @@ const AddProduct = () => {
                         .then(result => {
                             console.log(result)
                             toast.success(`${data.name} is added successfully`)
-                            // navigate('/dashboard/myproduct')
+                            navigate('/dashboard/myproduct')
                         })
                 }
             })
@@ -71,7 +73,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-                {/* {errors.name && <p className='text-red-500'>{errors.name?.message}</p>} */}
+                {errors.productName && <p className='text-red-500'>{errors.productName?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Origin Price</span>
@@ -86,6 +88,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
+                {errors.originPrice && <p className='text-red-500'>{errors.originPrice?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Resale Price</span>
@@ -100,6 +103,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
+                {errors.resalePrice && <p className='text-red-500'>{errors.resalePrice?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Use</span>
@@ -114,6 +118,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
+                {errors.use && <p className='text-red-500'>{errors.use?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Description</span>
@@ -128,7 +133,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-
+                {errors.description && <p className='text-red-500'>{errors.description?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Categories</span>
@@ -144,6 +149,7 @@ const AddProduct = () => {
                         <option value="hp">Hp</option>
                     </select>
                 </div>
+                {errors.categories && <p className='text-red-500'>{errors.categories?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Product Condition</span>
@@ -162,7 +168,7 @@ const AddProduct = () => {
 
                     </select>
                 </div>
-
+                {errors.condition && <p className='text-red-500'>{errors.condition?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Seller Name</span>
@@ -177,7 +183,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-
+                {errors.sellerName && <p className='text-red-500'>{errors.sellerName?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Phone Number</span>
@@ -192,7 +198,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-
+                {errors.phone && <p className='text-red-500'>{errors.phone?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Location</span>
@@ -207,10 +213,7 @@ const AddProduct = () => {
                         className="input input-bordered w-full"
                     />
                 </div>
-
-                {/* {errors.email && <p className='text-red-500'>{errors.email?.message}</p>} */}
-
-
+                {errors.location && <p className='text-red-500'>{errors.location?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <label className="label">
                         <span className="label-text">Upload Product Photo</span>
@@ -224,15 +227,10 @@ const AddProduct = () => {
                         className="input input-bordered"
                     />
                 </div>
-                {/* {errors.img && <p className='text-red-500'>{errors.img?.message}</p>} */}
+                {errors.image && <p className='text-red-500'>{errors.image?.message}</p>}
                 <div className="form-control w-1/2 mx-auto">
                     <input className='btn btn-accent mt-3' value='Add Product' type="submit" />
                 </div>
-
-
-                {/* {
-                        signupError && <p className='text-red-800'>{signupError}</p>
-                    } */}
             </form>
         </div>
     );
