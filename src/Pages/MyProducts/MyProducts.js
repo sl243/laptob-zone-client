@@ -41,6 +41,7 @@ const MyProducts = () => {
                             <th>Condition</th>
                             <th>Use</th>
                             <th>Location</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,6 +61,7 @@ const MyProducts = () => {
                                 <td>{product.condition}</td>
                                 <td>{product.use}</td>
                                 <td>{product.location}</td>
+                                <td>Available</td>
                             </tr>)
                         }
                     </tbody>
