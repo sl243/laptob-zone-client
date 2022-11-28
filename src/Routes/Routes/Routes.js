@@ -37,10 +37,15 @@ const router = createBrowserRouter([
                 path: '/blog',
                 element: <Blog></Blog>
             },
+            // {
+            //     path: '/categoryProduct/:id',
+            //     element: <CategoryProduct></CategoryProduct>,
+            //     loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`)
+            // },
             {
-                path: '/categoryProduct/:id',
+                path: '/categoryProduct/:categoryName',
                 element: <CategoryProduct></CategoryProduct>,
-                loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`)
+                loader: ({params}) => fetch(`http://localhost:5000/products/${params.categoryName}`)
             },
            
         ]
@@ -50,7 +55,7 @@ const router = createBrowserRouter([
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
-                path: '/dashboard',
+                path: '/dashboard/myorder',
                 element: <MyOrders></MyOrders>
             },
             {
@@ -59,16 +64,16 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id',
-                element: <AdminRoute><Payment></Payment></AdminRoute>,
+                element: <Payment></Payment>,
                 loader: ({params}) => fetch(`http://localhost:5000/buy/${params.id}`)
             },
             {
                 path: '/dashboard/addproduct',
-                element: <AddProduct></AddProduct>
+                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
             },
             {
                 path: '/dashboard/myproduct',
-                element: <MyProducts></MyProducts>
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
             },
         ]
     },
