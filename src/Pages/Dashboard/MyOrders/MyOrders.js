@@ -10,7 +10,7 @@ const MyOrders = () => {
     const { data: buy = [] } = useQuery({
         queryKey: ['buy'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/buy?email=${user?.email}`, {
+            const res = await fetch(`https://laptob-zone-server.vercel.app/buy?email=${user?.email}`, {
 
             })
             const data = await res.json()

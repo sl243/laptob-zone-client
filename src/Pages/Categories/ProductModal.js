@@ -28,7 +28,7 @@ const ProductModal = ({ products }) => {
 
         console.log(buy)
 
-        fetch('http://localhost:5000/buy', {
+        fetch('https://laptob-zone-server.vercel.app/buy', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'

@@ -39,15 +39,10 @@ const router = createBrowserRouter([
                 path: '/blog',
                 element: <Blog></Blog>
             },
-            // {
-            //     path: '/categoryProduct/:id',
-            //     element: <CategoryProduct></CategoryProduct>,
-            //     loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`)
-            // },
             {
                 path: '/categoryProduct/:id',
-                element: <CategoryProduct></CategoryProduct>,
-                loader: ({params}) => fetch(`http://localhost:5000/categoryProduct/${params.id}`)
+                element: <PrivateRoute><CategoryProduct></CategoryProduct></PrivateRoute>,
+                loader: ({params}) => fetch(`https://laptob-zone-server.vercel.app/categoryProduct/${params.id}`)
             },
            
         ]
@@ -76,7 +71,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader: ({params}) => fetch(`http://localhost:5000/buy/${params.id}`)
+                loader: ({params}) => fetch(`https://laptob-zone-server.vercel.app/buy/${params.id}`)
             },
             {
                 path: '/dashboard/addproduct',

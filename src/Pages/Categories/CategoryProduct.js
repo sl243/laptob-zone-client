@@ -9,7 +9,7 @@ const CategoryProduct = () => {
     return (
         <div className='my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
             {
-                
+
                 products.map(category => <div className="card card-compact w-96 bg-base-100 shadow-xl" key={category._id}>
                     <figure><img src={category.image} className='h-48' alt="Shoes" /></figure>
                     <div className="card-body">
@@ -19,22 +19,19 @@ const CategoryProduct = () => {
                         <p className='font-bold'>Use: {category.use}</p>
                         <p className='font-bold'>Condition: {category.condition}</p>
                         <p className='font-bold'>Location: {category.location}</p>
+                        <p className='font-bold'>Seller: {category.sellerName}</p>
                         <div className="card-actions justify-around items-center">
                             <div>
-                                <p className='font-bold'>Seller: {category.sellerName}</p>
-                            </div>
-                            <div>
-                                <label htmlFor="product-modal" className="btn btn-primary">Book Now</label>
+                                <label 
+                                htmlFor="product-modal" 
+                                className="btn btn-primary">Book Now</label>
                             </div>
                         </div>
                     </div>
                 </div>)
             }
-            {/* <ProductModal
-                products={products}
-            ></ProductModal> */}
             {
-                products?.map(product => <ProductModal 
+                products?.map(product => <ProductModal
                     key={product._id}
                     products={product}
                 ></ProductModal>)

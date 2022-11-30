@@ -9,32 +9,32 @@ const AllSeller = () => {
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/sellers?buyerSeller=seller`)
+            const res = await fetch(`https://laptob-zone-server.vercel.app/sellers?buyerSeller=seller`)
             const data = await res.json()
             return data;
         }
-    
+
     })
 
 
     // seller delete
     const handleDeleteUser = user => {
         console.log(user)
-        fetch( `http://localhost:5000/users/seller/${user._id}`, {
+        fetch(`https://laptob-zone-server.vercel.app/users/seller/${user._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('access-token')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                refetch();
-                toast.success(`buyer ${user.name} deleted successfully`)
-                setDeleteSeller(data)
-            }
-            
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`buyer ${user.name} deleted successfully`)
+                    setDeleteSeller(data)
+                }
+
+            })
     }
 
     return (
@@ -47,18 +47,22 @@ const AllSeller = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            sellers.length >0 &&
+                            sellers.length > 0 &&
                             sellers?.map((seller, i) => <tr key={seller._id}>
                                 <th>{i + 1}</th>
                                 <td>{seller.name}</td>
                                 <td>{seller.email}</td>
                                 <td>{seller.buyerSeller}</td>
+                                <td>
+                                    <button className="btn btn-ghost">unverified</button>
+                                </td>
                                 <td>
                                     <label
                                         onClick={() => handleDeleteUser(seller)}
@@ -72,16 +76,6 @@ const AllSeller = () => {
                     </tbody>
                 </table>
             </div>
-            {/* {
-                deleteUsers &&
-                <ConfirmationModal
-                    title={`Are you sure want to delete`}
-                    message={`If you delete ${deleteUsers.name}. It cannot be undone`}
-                    successAction={handleDeleteDoctor}
-                    modalData={deleteUsers}
-                    closeModal={closeModal}
-                ></ConfirmationModal>
-            } */}
         </div>
     );
 };

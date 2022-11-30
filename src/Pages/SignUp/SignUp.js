@@ -53,7 +53,7 @@ const SignUp = () => {
      // user save in database
      const userSaveDatabase = (name, email, buyerSeller) => {
         const user = {name, email, buyerSeller};
-        fetch('http://localhost:5000/users', {
+        fetch('https://laptob-zone-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json',

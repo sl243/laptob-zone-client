@@ -7,7 +7,7 @@ const AllBuyer = () => {
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/buyers?buyerSeller=buyer`)
+            const res = await fetch(`https://laptob-zone-server.vercel.app/buyers?buyerSeller=buyer`)
             const data = await res.json()
             return data;
         }
@@ -17,7 +17,7 @@ const AllBuyer = () => {
      // Buyer delete
      const handleDeleteBuyer = user => {
         console.log(user)
-        fetch( `http://localhost:5000/users/buyer/${user._id}`, {
+        fetch( `https://laptob-zone-server.vercel.app/users/buyer/${user._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('access-token')}`
@@ -68,16 +68,7 @@ const AllBuyer = () => {
                     </tbody>
                 </table>
             </div>
-            {/* {
-                deleteUsers &&
-                <ConfirmationModal
-                    title={`Are you sure want to delete`}
-                    message={`If you delete ${deleteUsers.name}. It cannot be undone`}
-                    successAction={handleDeleteDoctor}
-                    modalData={deleteUsers}
-                    closeModal={closeModal}
-                ></ConfirmationModal>
-            } */}
+            
         </div>
     );
 };
