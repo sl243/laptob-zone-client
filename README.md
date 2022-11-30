@@ -3,9 +3,9 @@
 
 Website: https://laptob-zone.web.app/
 
-adminEmail: <kaushik@gmail.com>
+adminEmail: kaushik@gmail.com
 
-adminPassword: <Kaushik243>
+adminPassword: Kaushik243
 
 
 
