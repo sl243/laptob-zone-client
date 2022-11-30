@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../Loading/Loading';
 import useBuyer from '../Pages/useBuyer/useBuyer';
 
 const BuyerRoute = ({children}) => {
@@ -10,7 +11,7 @@ const BuyerRoute = ({children}) => {
     const location = useLocation();
 
     if(loading || isBuyerLoading) {
-        return <button className="btn loading">loading</button>
+        return <Loading></Loading>
     }
 
     if(user && isBuyer) {

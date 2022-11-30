@@ -1,7 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({order}) => {
 
@@ -14,7 +13,6 @@ const CheckoutForm = ({order}) => {
     const elements = useElements();
     const { price, userName, email, _id } = order;
 
-    const navigate = useNavigate()
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -102,7 +100,7 @@ const CheckoutForm = ({order}) => {
                     setSuccess('Congratulations ! Your Payment Successfully');
                     setTransactionId(paymentIntent.id)
                     toast.success('Congratulations ! Your Payment Successfully')
-                    // navigate('/dashboard')
+                    
                 })
         }
         setProcessing(false)

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
+import Loading from '../../Loading/Loading';
 
 const MyProducts = () => {
     const {user} = useContext(AuthContext)
@@ -23,7 +24,7 @@ const MyProducts = () => {
     })
 
     if(isLoading) {
-        return <button className="btn loading">loading</button>
+        return <Loading></Loading>
     }
 
     return (

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import ProductModal from './ProductModal';
 
 const CategoryProduct = () => {
-    const categories = useLoaderData()
-    console.log(categories)
+    const products = useLoaderData()
+    console.log(products)
 
     return (
         <div className='my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
             {
-
-                categories?.map(category => <div className="card card-compact w-96 bg-base-100 shadow-xl" key={category._id}>
+                
+                products.map(category => <div className="card card-compact w-96 bg-base-100 shadow-xl" key={category._id}>
                     <figure><img src={category.image} className='h-48' alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">{category.productName}</h2>
@@ -30,9 +30,15 @@ const CategoryProduct = () => {
                     </div>
                 </div>)
             }
-            <ProductModal
-                categories={categories}
-            ></ProductModal>
+            {/* <ProductModal
+                products={products}
+            ></ProductModal> */}
+            {
+                products?.map(product => <ProductModal 
+                    key={product._id}
+                    products={product}
+                ></ProductModal>)
+            }
         </div>
     );
 };

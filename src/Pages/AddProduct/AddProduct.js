@@ -30,7 +30,7 @@ const AddProduct = () => {
                         resalePrice: data.resalePrice,
                         use: data.use,
                         description: data.description,
-                        categories: data.categories,
+                        categoryName: data.categories,
                         condition: data.condition,
                         sellerName: data.sellerName,
                         email: data.email,
@@ -161,9 +161,9 @@ const AddProduct = () => {
 
                         })}
                         className="select select-bordered">
-                        <option value="dell">Dell</option>
-                        <option value="asus">Asus</option>
-                        <option value="hp">Hp</option>
+                        <option value="Dell">Dell</option>
+                        <option value="Asus">Asus</option>
+                        <option value="Hp">Hp</option>
                     </select>
                 </div>
                 {errors.categories && <p className='text-red-500'>{errors.categories?.message}</p>}
